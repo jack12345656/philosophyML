@@ -5,7 +5,5 @@ datatype name = Thales | Xenophanes | Pythagoras | Heraclitus | Parmenides | Zen
 
 datatype category = Metaphysics | Cosmology | Epistimology; 
 
-datatype relationships = [name];
-
-datatype philosopher = name * [category]  * (int, int, char) * relationships * string;
+datatype philosopher = name * category list  * (int, int, char) * name of list * string;
 
