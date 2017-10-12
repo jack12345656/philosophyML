@@ -2,3 +2,6 @@
 because I am using block comments. Any after the parenthesis you can write the
 code. *)
 
+(*Philosopher that would get lifespan, name, list of schools of thought, list of known relationships, and location. *)
+
+
