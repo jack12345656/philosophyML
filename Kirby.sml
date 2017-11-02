@@ -5,6 +5,10 @@ datatype name = Thales | Xenophanes | Pythagoras | Heraclitus | Parmenides | Zen
 
 datatype category = Metaphysics | Cosmology | Epistimology | Theology; 
 
-datatype philosopher = Philosopher of name * list of category  * (int, int, char) * list of name;
+datatype philosopher = Philosopher of name * category list * (int, int, char) * name list;
 
-Philosopher(Thales, [Metaphysics, Cosmology], (620,546,b),[Xenophanes, Heraclitus, Democritus]
+
+val Thales = Philosopher(Thales, [Metaphysics, Cosmology], (620,546,b),[Xenophanes, Heraclitus, Democritus]);
+val Xenophanes = Philosopher(Xenophanes, [Metaphysics, Cosmology], (620,546,b),[Xenophanes, Heraclitus, Democritus]);
+
+fun doesKnow(philA, philB) = 
