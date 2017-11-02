@@ -1,6 +1,8 @@
 (*So this is the file for our new Project, this line will not affect any code 
 because I am using block comments. Any after the parenthesis you can write the
-code. *)
+code. To runTo put the file in sml. Put the file in the place where you run ml 
+for me I had to put the file in the bin folder then run ./sml). Once in ml use the 
+command: use "filename.sml"; Use ml to test, make changes in the file. *)
 
 (*Philosopher that would get lifespan, name, list of schools of thought, list of known relationships, and location. *)
 
