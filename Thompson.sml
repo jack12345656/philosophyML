@@ -29,5 +29,3 @@ fun whoWasAlive(int) = [];
 
 (* hasBeard(philosopher) return boolean (beard) *)
 
-
-`
