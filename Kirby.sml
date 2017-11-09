@@ -3,7 +3,7 @@ because I am using block comments. Any after the parenthesis you can write the
 code. *)
 datatype name = Thales | Xenophanes | Pythagoras | Heraclitus | Parmenides | Zeno | Democritus | Empedocles | Protagoras | Gorgias | Socrates | Plato | Aristotle | Lucretius ;
 
-datatype category = Metaphysics | Cosmology | Rhetoric | Epistemology | Astronomy | Logic | Theology | Ethics | Mathematics | Politics; 
+datatype category = Ontology | Metaphysics | Cosmology | Rhetoric | Epistemology | Astronomy | Logic | Theology | Ethics | Mathematics | Politics; 
 
 datatype philosopher = Philosopher of name * category list * (int * int);
 
@@ -12,7 +12,7 @@ val thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], 
 val xenophanes = Philosopher(Xenophanes, [Epistemology, Cosmology, Theology], (570,475));
 val pythagoras = Philosopher(Pythagoras, [Metaphysics, Cosmology, Mathematics, Politics, Ethics], (570,495));
 val heraclitus = Philosopher(Heraclitus, [Epistemology, Cosmology, Theology], (535,475));
-val parmenides = Philosopher(Parminedes, [Ontology, Metaphysics], (515,450));
+val parmenides = Philosopher(Parmenides, [Ontology, Metaphysics], (515,450));
 val zeno = Philosopher(Zeno, [Ontology, Metaphysics], (490,430));
 val democritus = Philosopher(Democritus, [Metaphysics, Mathematics, Astronomy], (460,370));
 val empedocles = Philosopher(Empedocles, [Epistemology, Cosmology, Ontology], (490,430));
