@@ -15,14 +15,23 @@ datatype name = Thales | Xenophanes | Pythagoras | Heraclitus | Parmenides | Zen
 (*Philospher has a name * school of thought * (birth, death, b or a) * 
 * list of names of other philosophers * boolean of whether they have beard or
 * name *)
-datatype philosopher = Philosopher of name * category list * (int, int, char) *
-name list * boolean;
+datatype philosopher = Philosopher of name * category list * (int, int, char) * name list * boolean;
 
-val Thales = Philosopher(Thales, [Metaphysics, Cosmology], (620,546,b),[Xenophanes, Heraclitus, Democritus]);
+val Xenophanes = Philosopher(Xenophanes, [Epistemology, Cosmology, Theology], (570,475,b));
+val Thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], (620,546,b));
+val Pythagoras = Philosopher(Pythagoras, [Metaphysics, Cosmology, Mathematics, Politics, Ethics], (570,495,b));
+val Heraclitus = Philosopher(Heraclitus, [Epistemology, Cosmology, Theology], (535,475,b));
+val Parmenides = Philosopher(Parminedes, [Ontology, Metaphysics], (515,450,b));
+val Zeno = Philosopher(Zeno, [Ontology, Metaphysics], (490,430,b));
+val Democritus = Philosopher(Democritus, [Metaphysics, Mathematics, Astronomy], (460,370,b));
+val Empedocles = Philosopher(Empedocles, [Epistemology, Cosmology, Ontology], (490,430,b));
 
-val Xenophanes = Philosopher(Xenophanes, [Metaphysics, Cosmology], (620,546,b),[Xenophanes, Heraclitus, Democritus]);
-
-
+val Protagoras = Philosopher(Protagoras, [Rhetoric, Ethics], (490,420,b));
+val Gorgias = Philosopher(Gorgias, [Epistemology, Rhetoric, Ethics], (485,380,b));
+val Socrates = Philosopher(Socrates, [Epistemology, Ethics], (470,399,b));
+val Plato = Philosopher(Plato, [Rhetoric, Ethics, Politics], (428,348,b));
+val Aristotle = Philosopher(Aristotle, [Epistemology, Ethics, Metaphysics, Logic, Politics], (484,322,b));
+val Lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44,b));
 (*Insert Year, get list of philosophers who were alive*)
 fun whoWasAlive(int) = [];
 
