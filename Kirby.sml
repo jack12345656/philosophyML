@@ -8,20 +8,20 @@ datatype category = Metaphysics | Cosmology | Rhetoric | Epistemology | Astronom
 datatype philosopher = Philosopher of name * category list * (int * int);
 
 
-val Thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], (620,546));
-val Xenophanes = Philosopher(Xenophanes, [Epistemology, Cosmology, Theology], (570,475));
-val Pythagoras = Philosopher(Pythagoras, [Metaphysics, Cosmology, Mathematics, Politics, Ethics], (570,495));
-val Heraclitus = Philosopher(Heraclitus, [Epistemology, Cosmology, Theology], (535,475));
-val Parmenides = Philosopher(Parminedes, [Ontology, Metaphysics], (515,450));
-val Zeno = Philosopher(Zeno, [Ontology, Metaphysics], (490,430));
-val Democritus = Philosopher(Democritus, [Metaphysics, Mathematics, Astronomy], (460,370));
-val Empedocles = Philosopher(Empedocles, [Epistemology, Cosmology, Ontology], (490,430));
-val Protagoras = Philosopher(Protagoras, [Rhetoric, Ethics], (490,420));
-val Gorgias = Philosopher(Gorgias, [Epistemology, Rhetoric, Ethics], (485,380));
-val Socrates = Philosopher(Socrates, [Epistemology, Ethics], (470,399));
-val Plato = Philosopher(Plato, [Rhetoric, Ethics, Politics], (428,348));
-val Aristotle = Philosopher(Aristotle, [Epistemology, Ethics, Metaphysics, Logic, Politics], (484,322));
-val Lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44));
+val thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], (620,546));
+val xenophanes = Philosopher(Xenophanes, [Epistemology, Cosmology, Theology], (570,475));
+val pythagoras = Philosopher(Pythagoras, [Metaphysics, Cosmology, Mathematics, Politics, Ethics], (570,495));
+val heraclitus = Philosopher(Heraclitus, [Epistemology, Cosmology, Theology], (535,475));
+val parmenides = Philosopher(Parminedes, [Ontology, Metaphysics], (515,450));
+val zeno = Philosopher(Zeno, [Ontology, Metaphysics], (490,430));
+val democritus = Philosopher(Democritus, [Metaphysics, Mathematics, Astronomy], (460,370));
+val empedocles = Philosopher(Empedocles, [Epistemology, Cosmology, Ontology], (490,430));
+val protagoras = Philosopher(Protagoras, [Rhetoric, Ethics], (490,420));
+val gorgias = Philosopher(Gorgias, [Epistemology, Rhetoric, Ethics], (485,380));
+val socrates = Philosopher(Socrates, [Epistemology, Ethics], (470,399));
+val plato = Philosopher(Plato, [Rhetoric, Ethics, Politics], (428,348));
+val aristotle = Philosopher(Aristotle, [Epistemology, Ethics, Metaphysics, Logic, Politics], (484,322));
+val lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44));
 
 
 (*the following function will probably be taken out with the addition of the tree, philosopher types no longer have a name list at the end*)
