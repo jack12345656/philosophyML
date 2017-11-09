@@ -5,7 +5,7 @@ datatype name = Thales | Xenophanes | Pythagoras | Heraclitus | Parmenides | Zen
 
 datatype category = Metaphysics | Cosmology | Rhetoric | Epistemology | Astronomy | Logic | Theology | Ethics | Mathematics | Politics; 
 
-datatype philosopher = Philosopher of name * category list * (int, int, char) * name list;
+datatype philosopher = Philosopher of name * category list * (int * int * char) * name list;
 
 
 val Thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], (620,546,b));
