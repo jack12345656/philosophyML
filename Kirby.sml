@@ -23,10 +23,41 @@ val plato = Philosopher(Plato, [Rhetoric, Ethics, Politics], (428,348));
 val aristotle = Philosopher(Aristotle, [Epistemology, Ethics, Metaphysics, Logic, Politics], (484,322));
 val lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44));
 
+(*list of philosophers to run methods over*)
+val philList = [thales,xenophanes,pythagoras,heraclitus,parmenides,zeno,democritus,empedocles,protagoras,gorgias,socrates,plato,aristotle,lucretius];
+
+(*relation influce([(this philosopher, influences this philosopher)]*)
+val influence = [(thales,pythagoras),(thales,xenophanes),
+		(xenophanes,heraclitus),(xenophanes,parmenides),
+		(pythagoras,plato),(pythagoras,empedocles),(pythagoras,parmenides),(pythagoras,heraclitus),
+		(parmenides,plato),(parmenides,empedocles),(parmenides,gorgias),(parmenides,zeno),(parmenides,aristotle),(parmenides,protagoras),
+		(heraclitus,plato),(heraclitus,parmenides),
+		(democritus,aristotle),(democritus,protagoras),
+		(zeno,plato),(zeno,gorgias),(zeno,aristotle),
+		(plato,aristotle),(plato,lucretius),
+		(protagoras,plato),
+		(aristotle,lucretius),
+		(socrates,plato),(socrates,aristotle),(socrates,lucretius),
+		(empedocles,gorgias)];
+
+(*function to test two philosophers (a,b) over relation influence, to determine if a influenced b*)
+fun influences(a,b,[]) = false
+	| influences(a,b,(h1,h2)::rest) = (a = h1 andalso b = h2) orelse influences(a,b,rest);
+
+(*function to test two philosophers (a,b) over image of relation influence, to determine if a was influenced by b*)
+fun  influencedBy(a,b,[]) = false
+	| influencedBy(a,b,xx) = contains(a, image(b,xx);
 
 (*the following function will probably be taken out with the addition of the tree, philosopher types no longer have a name list at the end*)
 (*fun doesKnow(philA(_,_,_,a::rest), philB(name,_,_,_) = 
 	 a = name orelse doesKnow(philA(_,_,_,rest), philB(name,_,_,_));*)
+
+(* helper functions to be called in more complext functions*)
+fun image(a,[])=[]
+| image(a,(x,y)::rest) = 
+	if a=x
+	then y::image(a,rest)
+	else image(a,rest);
 
 fun contains(x, []) = false
 | contains(x, y::rest) = ((x=y) orelse contains(x,rest)); 
