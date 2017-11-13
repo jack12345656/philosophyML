@@ -23,7 +23,29 @@ val plato = Philosopher(Plato, [Rhetoric, Ethics, Politics], (428,348));
 val aristotle = Philosopher(Aristotle, [Epistemology, Ethics, Metaphysics, Logic, Politics], (484,322));
 val lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44));
 
+(*list of philosophers to run methods over*)
+val philList = [thales,xenophanes,pythagoras,heraclitus,parmenides,zeno,democritus,empedocles,protagoras,gorgias,socrates,plato,aristotle,lucretius];
 
+(*relation influces([(this philosopher, influences this philosopher)]*)
+val influences = [(thales,pythagoras),(thales,xenophanes),
+		(xenophanes,heraclitus),(xenophanes,parmenides),
+		(pythagoras,plato),(pythagoras,empedocles),(pythagoras,parmenides),(pythagoras,heraclitus),
+		(parmenides,plato),(parmenides,empedocles),(parmenides,gorgias),(parmenides,zeno),(parmenides,aristotle),(parmenides,protagoras),
+		(heraclitus,plato),(heraclitus,parmenides),
+		(democritus,aristotle),(democritus,protagoras),
+		(zeno,plato),(zeno,gorgias),(zeno,aristotle),
+		(plato,aristotle),(plato,lucretius),
+		(protagoras,plato),
+		(aristotle,lucretius),
+		(socrates,plato),(socrates,aristotle),(socrates,lucretius),
+		(empedocles,gorgias)];
+
+(*function to test two philosophers (a,b) over relation influences, to determine if a influenced b*)
+fun doesInfluence(a,b,[]) = false
+	| doesInfluence(a,b,(h1,h2)::rest) = (a = h1 andalso b = h2) orelse doesInfluence(a,b,rest);
+
+(*function to test two philosophers (a,b) over image of relation influences, to determine if a was influenced by b*)
+fun 
 (*the following function will probably be taken out with the addition of the tree, philosopher types no longer have a name list at the end*)
 (*fun doesKnow(philA(_,_,_,a::rest), philB(name,_,_,_) = 
 	 a = name orelse doesKnow(philA(_,_,_,rest), philB(name,_,_,_));*)
