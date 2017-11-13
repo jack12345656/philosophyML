@@ -8,20 +8,20 @@ datatype category = Ontology | Metaphysics | Cosmology | Rhetoric | Epistemology
 datatype philosopher = Philosopher of name * category list * (int * int);
 
 
-val thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], (620,546));
-val xenophanes = Philosopher(Xenophanes, [Epistemology, Cosmology, Theology], (570,475));
-val pythagoras = Philosopher(Pythagoras, [Metaphysics, Cosmology, Mathematics, Politics, Ethics], (570,495));
-val heraclitus = Philosopher(Heraclitus, [Epistemology, Cosmology, Theology], (535,475));
-val parmenides = Philosopher(Parmenides, [Ontology, Metaphysics], (515,450));
-val zeno = Philosopher(Zeno, [Ontology, Metaphysics], (490,430));
-val democritus = Philosopher(Democritus, [Metaphysics, Mathematics, Astronomy], (460,370));
-val empedocles = Philosopher(Empedocles, [Epistemology, Cosmology, Ontology], (490,430));
-val protagoras = Philosopher(Protagoras, [Rhetoric, Ethics], (490,420));
-val gorgias = Philosopher(Gorgias, [Epistemology, Rhetoric, Ethics], (485,380));
-val socrates = Philosopher(Socrates, [Epistemology, Ethics], (470,399));
-val plato = Philosopher(Plato, [Rhetoric, Ethics, Politics], (428,348));
-val aristotle = Philosopher(Aristotle, [Epistemology, Ethics, Metaphysics, Logic, Politics], (484,322));
-val lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44));
+val thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], (620,546),true);
+val xenophanes = Philosopher(Xenophanes, [Epistemology, Cosmology, Theology], (570,475),true);
+val pythagoras = Philosopher(Pythagoras, [Metaphysics, Cosmology, Mathematics, Politics, Ethics], (570,495),true);
+val heraclitus = Philosopher(Heraclitus, [Epistemology, Cosmology, Theology], (535,475),true);
+val parmenides = Philosopher(Parmenides, [Ontology, Metaphysics], (515,450),true);
+val zeno = Philosopher(Zeno, [Ontology, Metaphysics], (490,430),true);
+val democritus = Philosopher(Democritus, [Metaphysics, Mathematics, Astronomy], (460,370),true);
+val empedocles = Philosopher(Empedocles, [Epistemology, Cosmology, Ontology], (490,430),true);
+val protagoras = Philosopher(Protagoras, [Rhetoric, Ethics], (490,420),true);
+val gorgias = Philosopher(Gorgias, [Epistemology, Rhetoric, Ethics], (485,380),true);
+val socrates = Philosopher(Socrates, [Epistemology, Ethics], (470,399),true);
+val plato = Philosopher(Plato, [Rhetoric, Ethics, Politics], (428,348),true);
+val aristotle = Philosopher(Aristotle, [Epistemology, Ethics, Metaphysics, Logic, Politics], (484,322),true);
+val lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44),true);
 
 (*list of philosophers to run methods over*)
 val philList = [thales,xenophanes,pythagoras,heraclitus,parmenides,zeno,democritus,empedocles,protagoras,gorgias,socrates,plato,aristotle,lucretius];
@@ -40,18 +40,6 @@ val influence = [(thales,pythagoras),(thales,xenophanes),
 		(socrates,plato),(socrates,aristotle),(socrates,lucretius),
 		(empedocles,gorgias)];
 
-(*function to test two philosophers (a,b) over relation influence, to determine if a influenced b*)
-fun influences(a,b,[]) = false
-	| influences(a,b,(h1,h2)::rest) = (a = h1 andalso b = h2) orelse influences(a,b,rest);
-
-(*function to test two philosophers (a,b) over image of relation influence, to determine if a was influenced by b*)
-fun  influencedBy(a,b,[]) = false
-	| influencedBy(a,b,xx) = contains(a, image(b,xx);
-
-(*the following function will probably be taken out with the addition of the tree, philosopher types no longer have a name list at the end*)
-(*fun doesKnow(philA(_,_,_,a::rest), philB(name,_,_,_) = 
-	 a = name orelse doesKnow(philA(_,_,_,rest), philB(name,_,_,_));*)
-
 (* helper functions to be called in more complext functions*)
 fun image(a,[])=[]
 | image(a,(x,y)::rest) = 
@@ -62,8 +50,21 @@ fun image(a,[])=[]
 fun contains(x, []) = false
 | contains(x, y::rest) = ((x=y) orelse contains(x,rest)); 
 
-fun inSameCategory(philA(_,[],_),philB(_,bb,_)) = []  
-| inSameCategory(philA(_,a::aRest,_),philB(_,bb,_)) = 
+fun intersect([],bb) = []
+|intersect(a:rest,[]) = []
+|intersect(a:rest,bb) = 
 	if contains(a,bb)
-	then a::inSameCategory(philA(_,aRest,_),philB(_,bb,_))
-	else inSameCategory(philA(_,aRest,_),philB(_,bb,_));
+	then a::intersect(rest,bb)
+	else intersect(rest,bb);
+
+(*function to test two philosophers (a,b) over relation influence, to determine if a influenced b*)
+fun influences(a,b,[]) = false
+	| influences(a,b,(h1,h2)::rest) = (a = h1 andalso b = h2) orelse influences(a,b,rest);
+
+(*function to test two philosophers (a,b) over image of relation influence, to determine if a was influenced by b*)
+fun  influencedBy(a,b,[]) = false
+	| influencedBy(a,b,xx) = contains(a, image(b,xx);
+
+(*function returns intersection of two philosophers categories of thought*)
+fun intersectionCategory(Philosopher(_,aa,_,_), Philosopher(_,bb,_,_)) =
+	intersect(aa,bb);
