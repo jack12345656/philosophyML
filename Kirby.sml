@@ -58,6 +58,7 @@ fun image(a,[])=[]
 	if a=x
 	then y::image(a,rest)
 	else image(a,rest);
+
 fun contains(x, []) = false
 | contains(x, y::rest) = ((x=y) orelse contains(x,rest)); 
 
