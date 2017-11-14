@@ -1,4 +1,4 @@
-(*So this is the file for our new Project, this line will not affect any code 
+(*So this is the file for our new Project, this line will not affect any `code 
 because I am using block comments. Any after the parenthesis you can write the
 code. To runTo put the file in sml. Put the file in the place where you run ml 
 for me I had to put the file in the bin folder then run ./sml). Once in ml use the 
@@ -47,15 +47,27 @@ val allPhilosopher = [thales, xenophanes, heraclitus, parmenides, zeno, democrit
 (*Insert Year, get list of philosophers who were alive*)
 fun whoWasAlive(year) =
   let fun helper([]) = []
-   | helper((p as Philosopher(_,_,(born,died),_))::rest) = if born <= year
-    andalso year <= died then p::helper(rest) else helper(rest);
+    | helper((p as Philosopher(_,_,(born,died),_))::rest) = if born >= year
+    andalso year >= died then p::helper(rest) else helper(rest);
   in
     helper(allPhilosopher)
   end;
-(*Takes two philosophers and a year, returns boolean*)
+(*_____________________________________________________________________*)
+(*            This function is currently broken unfortunately          *)
 (*fun inSameSchoolOfThought(philosopher,philosopher, school of thought) return
 * boolean*)
+  fun inSameSchoolOfThought(nameA as Philosopher(_,xx,_,_), nameB as
+    Philosopher(_,yy,_,_), schoolOfThought) =
+      let fun helper([],[]) = false
+       | helper(a::rest1,b::rest2) = if a = schoolOfThought andalso b =
+       schoolOfThought then true else if b = [] then
+         helper(rest1, [yy]) else helper(a::rest1, rest2);
+      in
+        helper([xx],[yy])
+      end;
+(*_____________________________________________________________________*)
 
 (* hasBeard(philosopher) return boolean (beard) *)
-fun hasBeard(phil(_,_,_,bool)) = if phil = true then return true else
+fun hasBeard(p as Philosopher(_,_,_,beard)) = if beard = true then true else
   false;
+  
