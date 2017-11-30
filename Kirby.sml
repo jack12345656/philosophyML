@@ -5,7 +5,7 @@ datatype name = Thales | Xenophanes | Pythagoras | Heraclitus | Parmenides | Zen
 
 datatype category = Ontology | Metaphysics | Cosmology | Rhetoric | Epistemology | Astronomy | Logic | Theology | Ethics | Mathematics | Politics; 
 
-datatype philosopher = Philosopher of name * category list * (int * int);
+datatype philosopher = Philosopher of name * category list * (int * int) * bool;
 
 
 val thales = Philosopher(Thales, [Metaphysics, Ethics, Mathematics, Astronomy], (620,546),true);
@@ -38,9 +38,9 @@ val influence = [(thales,pythagoras),(thales,xenophanes),
 		(protagoras,plato),
 		(aristotle,lucretius),
 		(socrates,plato),(socrates,aristotle),(socrates,lucretius),
-		(empedocles,gorgias)];
+    (empedocles,gorgias)];
 
-(* helper functions to be called in more complext functions*)
+(* helper functions to be called in more complex functions*)
 fun image(a,[])=[]
 | image(a,(x,y)::rest) = 
 	if a=x
@@ -50,12 +50,14 @@ fun image(a,[])=[]
 fun contains(x, []) = false
 | contains(x, y::rest) = ((x=y) orelse contains(x,rest)); 
 
-fun intersect([],bb) = []
-|intersect(a:rest,[]) = []
-|intersect(a:rest,bb) = 
-	if contains(a,bb)
-	then a::intersect(rest,bb)
-	else intersect(rest,bb);
+fun intersection([],bb) = [] | intersection(a::rest,bb) = if contains(a, bb) then a::intersection(rest, bb) else intersection(rest,bb);
+
+fun makeNoRepeats([]) = []
+	|makeNoRepeats(a::rest) = if contains(a,rest) = true then makeNoRepeats(rest) else a::makeNoRepeats(rest);
+
+fun union(a,b) = makeNoRepeats(a@b);
+
+fun fetchList(Philosopher(_,aa,_,_)) = aa;	
 
 (*function to test two philosophers (a,b) over relation influence, to determine if a influenced b*)
 fun influences(a,b,[]) = false
@@ -63,12 +65,13 @@ fun influences(a,b,[]) = false
 
 (*function to test two philosophers (a,b) over image of relation influence, to determine if a was influenced by b*)
 fun  influencedBy(a,b,[]) = false
-	| influencedBy(a,b,xx) = contains(a, image(b,xx);
+	| influencedBy(a,b,xx) = contains(a, image(b,xx));
 
 (*function returns intersection of two philosophers categories of thought*)
 fun intersectionCategory(Philosopher(_,aa,_,_), Philosopher(_,bb,_,_)) =
-	intersect(aa,bb);
+	intersection(aa,bb);
 
+(*function returns list of philosophers alive during a range of dates*)
 fun wasAliveDuring(x,y) = 
 	let
 		val i = ref x;
@@ -80,8 +83,7 @@ fun wasAliveDuring(x,y) =
 			!pp)
 	end;
 
-fun fetchList(Philosopher(_,aa,_,_)) = aa;	
-
+(*function to find philosophers over a range of dates in a specific category*)
 fun courseReadingList(x,y,c) =
 	let
 		val pp = wasAliveDuring(x,y);
