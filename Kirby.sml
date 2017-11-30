@@ -72,16 +72,11 @@ fun intersectionCategory(Philosopher(_,aa,_,_), Philosopher(_,bb,_,_)) =
 	intersection(aa,bb);
 
 (*function returns list of philosophers alive during a range of dates*)
-fun wasAliveDuring(x,y) = 
-	let
-		val i = ref x;
-		val pp = whoWasAlive(i);
-	in
-		(while !i > y do
-			( i:= !i - 1;
-			 pp := union(!pp, whoWasAlive(!i)));
-			!pp)
-	end;
+
+fun wasAliveDuring(x,y) =
+	if x >= y 
+	then union(whoWasAlive(x), wasAliveDuring(x-1,y))
+	else [];
 
 (*function to find philosophers over a range of dates in a specific category*)
 fun courseReadingList(x,y,c) =
