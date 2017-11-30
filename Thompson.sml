@@ -3,6 +3,14 @@ because I am using block comments. Any after the parenthesis you can write the
 code. To runTo put the file in sml. Put the file in the place where you run ml 
 for me I had to put the file in the bin folder then run ./sml). Once in ml use the 
 command: use "filename.sml"; Use ml to test, make changes in the file. *)
+fun contains(x, []) = false
+    | contains(x, y::rest) = x = y orelse contains(x, rest);
+
+fun intersection([],bb) = [] | intersection(a::rest,bb) = if contains(a, bb) then a::intersection(rest, bb) else intersection(rest,bb);
+
+fun filter(f, []) = []
+  | filter(f, a::rest) = if f(a) then a::filter(f, rest) else filter(f, rest);
+
 
 (*Philosopher that would get lifespan, name, list of schools of thought, list of known relationships, and location. *)
 
@@ -44,6 +52,7 @@ Logic, Politics], (484,322),true);
 val lucretius = Philosopher(Lucretius, [Ethics, Metaphysics], (99,44),true);
 
 val allPhilosopher = [thales, xenophanes, heraclitus, parmenides, zeno, democritus, empedocles, protagoras, gorgias, socrates, plato, aristotle, lucretius];
+(*____________________________________________________________________*)
 (*Insert Year, get list of philosophers who were alive*)
 fun whoWasAlive(year) =
   let fun helper([]) = []
@@ -53,21 +62,14 @@ fun whoWasAlive(year) =
     helper(allPhilosopher)
   end;
 (*_____________________________________________________________________*)
-(*            This function is currently broken unfortunately          *)
-(*fun inSameSchoolOfThought(philosopher,philosopher, school of thought) return
-* boolean*)
-  fun inSameSchoolOfThought(nameA as Philosopher(_,xx,_,_), nameB as
-    Philosopher(_,yy,_,_), schoolOfThought) =
-      let fun helper([],[]) = false
-       | helper(a::rest1,b::rest2) = if a = schoolOfThought andalso b =
-       schoolOfThought then true else if b = [] then
-         helper(rest1, [yy]) else helper(a::rest1, rest2);
-      in
-        helper([xx],[yy])
-      end;
-(*_____________________________________________________________________*)
-
 (* hasBeard(philosopher) return boolean (beard) *)
 fun hasBeard(p as Philosopher(_,_,_,beard)) = if beard = true then true else
   false;
-  
+
+(*____________________________________________________________________*)
+(*Takes a list of topics, gives out list of philophers*)
+fun hasCategories(cc) =
+let fun testPhil(Philosopher(_,dd,_,_)) = intersection(cc,dd) <> [];
+in
+  filter(testPhil, allPhilosopher)
+end;
