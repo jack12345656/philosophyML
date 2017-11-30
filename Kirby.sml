@@ -68,3 +68,27 @@ fun  influencedBy(a,b,[]) = false
 (*function returns intersection of two philosophers categories of thought*)
 fun intersectionCategory(Philosopher(_,aa,_,_), Philosopher(_,bb,_,_)) =
 	intersect(aa,bb);
+
+fun wasAliveDuring(x,y) = 
+	let
+		val i = ref x;
+		val pp = whoWasAlive(i);
+	in
+		(while !i > y do
+			( i:= !i - 1;
+			 pp := union(!pp, whoWasAlive(!i)));
+			!pp)
+	end;
+
+fun fetchList(Philosopher(_,aa,_,_)) = aa;	
+
+fun courseReadingList(x,y,c) =
+	let
+		val pp = wasAliveDuring(x,y);
+	in
+		fun listCategory(c,[]) = []
+			|listCategory(c,pp) =
+			if contains(c, fetchList(hd(pp)))
+			then hd(pp)::listCategory(c, tl(pp))
+			else listCategory(c, tl(pp));
+	end;
