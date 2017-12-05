@@ -59,6 +59,15 @@ fun union(a,b) = makeNoRepeats(a@b);
 
 fun fetchList(Philosopher(_,aa,_,_)) = aa;	
 
+fun map(f, []) = []
+  | map(f, a::rest) = f(a)::map(f, rest);
+
+fun filter(f, []) = []
+  | filter(f, a::rest) = 
+    if f(a) 
+    then a::filter(f, rest) 
+    else filter(f, rest);
+
 (*function to test two philosophers (a,b) over relation influence, to determine if a influenced b*)
 fun influences(a,b,[]) = false
 	| influences(a,b,(h1,h2)::rest) = (a = h1 andalso b = h2) orelse influences(a,b,rest);
