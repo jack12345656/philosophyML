@@ -38,7 +38,7 @@ val influence = [(thales,pythagoras),(thales,xenophanes),
 		(protagoras,plato),
 		(aristotle,lucretius),
 		(socrates,plato),(socrates,aristotle),(socrates,lucretius),
-    (empedocles,gorgias)];
+		(empedocles,gorgias)];
 
 (* helper functions to be called in more complex functions*)
 fun image(a,[])=[]
@@ -68,6 +68,9 @@ fun filter(f, []) = []
     then a::filter(f, rest) 
     else filter(f, rest);
 
+fun flatlist([]) = [] 
+  | flatlist(x::rest) = x@flatlist(rest);
+
 (*function to test two philosophers (a,b) over relation influence, to determine if a influenced b*)
 fun influences(a,b,[]) = false
 	| influences(a,b,(h1,h2)::rest) = (a = h1 andalso b = h2) orelse influences(a,b,rest);
@@ -88,13 +91,18 @@ fun wasAliveDuring(x,y) =
 	else [];
 
 (*function to find philosophers over a range of dates in a specific category*)
-fun courseReadingList(x,y,c) =
-	let
-		val pp = wasAliveDuring(x,y);
+fun courseReadingList(a,b,c) = 
+	let val aliveL = filter(f(x) => contains(x,wasAliveDuring(a,b)), philList)
 	in
-		fun listCategory(c,[]) = []
-			|listCategory(c,pp) =
-			if contains(c, fetchList(hd(pp)))
-			then hd(pp)::listCategory(c, tl(pp))
-			else listCategory(c, tl(pp));
+		filter(f(x) => contains(c, fetchList(x)), aliveL)
+	end;
+
+(*function to find the root influences of philosopher p, that informed p on category t*)
+fun rootInfluence(p, t) = 
+	let val tagged = filter( fn(x) => contains(t, fetchList(x)), influences(p));
+		val xx = makeNoRepeats(flatlist(map(rootInfluence(t), tagged)))
+	in 
+		if xx = []
+		then [p]
+		else xx
 	end;
